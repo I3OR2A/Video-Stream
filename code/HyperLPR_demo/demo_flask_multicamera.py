@@ -1,9 +1,11 @@
 import os
 from functools import wraps
+from urllib.parse import unquote_plus
 
 import yaml
 from flask import Flask, render_template, request, jsonify, Response, current_app, Blueprint
 from flask_sqlalchemy import SQLAlchemy, Model
+from flask_cors import CORS
 import datetime
 import cv2
 
@@ -76,7 +78,7 @@ def convert_datetime(value):
 
 
 class ResponseCode(object):
-    Success = 0  # 成功
+    Success = 20000  # 成功
     Fail = -1  # 失败
     NoResourceFound = 40001  # 未找到资源
     InvalidParameter = 40002  # 参数无效
@@ -244,6 +246,8 @@ config_path = None
 config_name = 'DEVELOPMENT'
 
 app = Flask(__name__)
+CORS(app)
+
 # 读取配置文件
 if not config_path:
     pwd = os.getcwd()
@@ -327,6 +331,38 @@ def test():
     return res.data
 
 
+@route('/user/info', methods=["GET"])
+def info():
+    """
+    测试返回不同的类型
+    :return:
+    """
+    res = ResMsg()
+    test_dict = dict(token='admin')
+    # 此处只需要填入响应状态码,即可获取到对应的响应消息
+    res.update(code=ResponseCode.Success, data=test_dict)
+    # 此处不再需要用jsonify，如果需要定制返回头或者http响应如下所示
+    # return res.data,200,{"token":"111"}
+    return res.data
+
+
+@route('/user/login', methods=["POST"])
+def login():
+    """
+    测试返回不同的类型
+    :return:
+    """
+    res = ResMsg()
+    test_dict = dict(roles='[admin]',
+                     name='admin',
+                     avatar='https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+    # 此处只需要填入响应状态码,即可获取到对应的响应消息
+    res.update(code=ResponseCode.Success, data=test_dict)
+    # 此处不再需要用jsonify，如果需要定制返回头或者http响应如下所示
+    # return res.data,200,{"token":"111"}
+    return res.data
+
+
 @route('/test2/', methods=["GET"])
 def test2():
     """
@@ -367,8 +403,11 @@ def query_all():
 def add_camera():
     # camera = Camera(1, '192.168.1.81', '192.168.1.81', 554,
     #                 'rtsp://admin:dh123456@192.168.1.81:554/cam/realmonitor?channel=1&subtype=1', 'test', '1')
-    camera = Camera(int(request.form['type_id']), request.form['hostname'], request.form['ip_address'],
-                    int(request.form['port']), request.form['url'], request.form['remark'], request.form['update_user'])
+    # print(request.json)
+    # print(request.json.get('hostname'))
+    # print(request.args)
+    camera = Camera(int(request.json['type_id']), request.json['hostname'], request.json['ip_address'],
+                    int(request.json['port']), request.json['url'], request.json['remark'], request.json['update_user'])
     db.session.add(camera)
     db.session.commit()
 
@@ -413,18 +452,36 @@ def delete_camera(pid):
     return res.data
 
 
-def find_camera(id):
-    cameras = ['rtsp://admin:dh123456@192.168.1.81:554/cam/realmonitor?channel=1&subtype=1']
-    return cameras[int(id)]
+# def find_camera(id):
+#     cameras = ['rtsp://admin:dh123456@192.168.1.81:554/cam/realmonitor?channel=1&subtype=1']
+#     return cameras[int(id)]
+def find_camera(pid):
+    camera = Camera.query.filter_by(pid=pid).first()
+    return camera.url
 
 
 # for cctv camera use rtsp://username:password@ip_address:554/user=username_password='password'_channel
 # =channel_number_stream=0.sdp' instead of camera for webcam use zero(0)
 
 
-def gen_frames(camera_id):
-    cam = find_camera(camera_id)
-    cap = cv2.VideoCapture(cam)
+# def gen_frames(camera_id):
+#     cam = find_camera(camera_id)
+#     cap = cv2.VideoCapture(cam)
+#
+#     while True:
+#         # for cap in caps:
+#         # # Capture frame-by-frame
+#         success, frame = cap.read()  # read the camera frame
+#         if not success:
+#             break
+#         else:
+#             ret, buffer = cv2.imencode('.jpg', frame)
+#             frame = buffer.tobytes()
+#             yield (b'--frame\r\n'
+#                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+def gen_frames(url):
+    # cam = find_camera(pid)
+    cap = cv2.VideoCapture(url)
 
     while True:
         # for cap in caps:
@@ -440,10 +497,17 @@ def gen_frames(camera_id):
 
 
 # @app.route('/video_feed/<string:id>/', methods=["GET"])
-@route('/video_feed/<string:id>/', methods=["GET"])
-def video_feed(id):
+# @route('/video_feed/<string:id>/', methods=["GET"])
+# def video_feed(id):
+#     """Video streaming route. Put this in the src attribute of an img tag."""
+#     return Response(gen_frames(id),
+#                     mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/video_feed', methods=["POST"])
+def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen_frames(id),
+    url = request.json['url']
+    print(url)
+    return Response(gen_frames(url),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 

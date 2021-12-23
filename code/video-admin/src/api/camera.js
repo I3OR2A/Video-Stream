@@ -2,45 +2,52 @@ import request from '@/utils/request'
 
 export default {
   // 讲师列表（条件查询分页）
-  // current当前页 limit每页记录数 teacherQuery条件对象
-  getTeacherListPage(current, limit, teacherQuery) {
+  // current当前页 limit每页记录数 cameraQuery条件对象
+  getCameraListPage(current, limit, cameraQuery) {
     return request({
       // url: '/eduservice/teacher/pageTeacherCondition/'+current+"/"+limit,
       url: `/eduservice/teacher/pageTeacherCondition/${current}/${limit}`,
       method: 'post',
       // teacherQuery条件对象，后端使用RequestBody获取对象
       // data表示把对象转换json进行传递到接口里面
-      data: teacherQuery
+      data: cameraQuery
     })
   },
   // 删除讲师
-  deleteTeacher(id) {
+  deleteCamera(pid) {
     return request({
-      url: `/eduservice/teacher/${id}`,
+      url: `/camera/${pid}`,
       method: 'delete'
     })
   },
   // 添加讲师
-  addTeacher(teacher) {
+  addCamera(camera) {
     return request({
-      url: `/eduservice/teacher/addTeacher`,
+      url: `/camera/add_camera`,
       method: 'post',
-      data: teacher
+      data: camera
     })
   },
   // 根据id查询讲师，回显数据
-  getTeacherInfo(id) {
+  getCameraInfo(pid) {
     return request({
-      url: `/eduservice/teacher/getTeacher/${id}`,
+      url: `/camera/${pid}`,
+      method: 'get'
+    })
+  },
+  // 讲师列表
+  getCameraList() {
+    return request({
+      url: `/camera/query_all`,
       method: 'get'
     })
   },
   // 修改讲师
-  updateTeacherInfo(teacher) {
+  updateCameraInfo(camera) {
     return request({
-      url: `/eduservice/teacher/updateTeacher`,
-      method: 'post',
-      data: teacher
+      url: `/camera/update_camera`,
+      method: 'put',
+      data: camera
     })
   }
 }

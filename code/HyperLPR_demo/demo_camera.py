@@ -6,7 +6,8 @@ import cv2
 # rtsp://admin:admin@192.168.1.81:554/cam/realmonitor?channel=1&subtype=1
 # rtsp://192.168.1.81:554/live
 
-url = 'rtsp://admin:dh123456@192.168.1.81:554/cam/realmonitor?channel=1&subtype=1'
+# url = 'rtsp://admin:dh123456@192.168.1.81:554/cam/realmonitor?channel=1&subtype=1'
+url = 'rtsp://tapocamera:062607171@192.168.68.112:554/stream1'
 cap = cv2.VideoCapture(url)
 while cap.isOpened():
     # Capture frame-by-frame

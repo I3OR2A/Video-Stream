@@ -21,7 +21,7 @@
               <el-input v-model="input" placeholder="请输入" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="el-icon-refresh">更新</el-button>
+              <el-button type="primary" icon="el-icon-refresh" @click="getList()">更新</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -43,7 +43,7 @@
             style="width: 100%"
           >
             <el-table-column
-              prop="typeId"
+              prop="type_id"
               label="类别"
               width="180"
               sortable
@@ -55,7 +55,7 @@
               sortable
             />
             <el-table-column
-              prop="ipAddress"
+              prop="ip_address"
               label="連接地址"
               width="180"
               sortable
@@ -63,6 +63,11 @@
             <el-table-column
               prop="port"
               label="端口"
+              width="180"
+            />
+            <el-table-column
+              prop="url"
+              label="串流URL"
               width="180"
             />
             <el-table-column
@@ -91,7 +96,7 @@
         <el-form-item required label="主机类别" :label-width="formLabelWidth">
           <el-form :inline="true">
             <el-form-item>
-              <el-select v-model="hostInfo.typeId" placeholder="请选择">
+              <el-select v-model="cameraInfo.type_id" placeholder="请选择">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -110,10 +115,16 @@
 
         </el-form-item>
         <el-form-item required label="主机别名" :label-width="formLabelWidth">
-          <el-input v-model="hostInfo.hostname" placeholder="请输入" />
+          <el-input v-model="cameraInfo.hostname" placeholder="请输入" />
         </el-form-item>
         <el-form-item required label="连接地址" :label-width="formLabelWidth">
-          <el-input v-model="hostInfo.ipAddress" placeholder="请输入" />
+          <el-input v-model="cameraInfo.ip_address" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item required label="串流URL" :label-width="formLabelWidth">
+          <el-input v-model="cameraInfo.url" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item required label="端口" :label-width="formLabelWidth">
+          <el-input v-model="cameraInfo.port" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="独立密钥" :label-width="formLabelWidth">
           <el-button icon="el-icon-plus">點擊上傳</el-button><br>
@@ -121,7 +132,7 @@
         </el-form-item>
         <el-form-item label="备注信息" :label-width="formLabelWidth">
           <el-input
-            v-model="hostInfo.remark"
+            v-model="cameraInfo.remark"
             type="textarea"
             :rows="2"
             placeholder="请输入模板备注信息"
@@ -132,7 +143,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addOrUpdate">驗 證</el-button>
+        <el-button type="primary" @click="saveOrUpdate">驗 證</el-button>
       </div>
     </el-dialog>
 
@@ -169,6 +180,7 @@
 </template>
 
 <script>
+import camera from '@/api/camera'
 
 export default {
   data() {
@@ -176,14 +188,15 @@ export default {
       page: 1, // 当前页
       limit: 10, // 每页记录数
       total: 0, // 总记录数
-      hostInfoQuery: {}, // 条件封装对象
-      hostInfo: {
-        typeId: 1,
+      cameraInfoQuery: {}, // 条件封装对象
+      cameraInfo: {
+        type_id: '1',
         hostname: '',
-        ipAddress: '',
-        port: 1,
+        ip_address: '',
+        port: '1',
+        url: '',
         remark: '',
-        updateUser: 1
+        update_user: '1'
       },
       dialogBatchVisible: false,
       dialogFormVisible: false,
@@ -191,10 +204,10 @@ export default {
       input: '',
       options: [{
         value: '1',
-        label: 'DBSRV2'
+        label: '1'
       }, {
         value: '2',
-        label: 'WEB'
+        label: '2'
       }],
       value: '',
       list: null
@@ -230,7 +243,42 @@ export default {
     // 调用
     this.getList()
   },
-  methods: {
+  methods: { // 创建具体的方法，调用teacher.js定义方法
+    // 讲师列表的方法
+    getList(page = 1) {
+      this.page = page
+      camera.getCameraList()
+        .then(response => {
+          // response接口返回的数据
+          console.log(response)
+          this.list = response.data
+          // this.total = response.data.total
+          console.log(this.list)
+          // console.log(this.total)
+        }) // 请求成功
+        .catch(error => {
+          console.log(error)
+        }) // 请求失败
+    }, saveOrUpdate() {
+      // 添加
+      this.saveCamera()
+    },
+    // 添加讲师方法
+    saveCamera() {
+      camera.addCamera(this.cameraInfo)
+        .then(response => { // 添加成功
+          // 提示信息
+          this.$message({
+            type: 'success',
+            message: '添加成功!'
+          })
+          // 回到列表页面  路由跳转
+          this.$router.push({ path: '/camera/table' })
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
 }
 </script>

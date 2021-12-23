@@ -68,10 +68,10 @@ export const constantRoutes = [
         meta: { title: '摄像头列表', icon: 'table' }
       },
       {
-        path: 'save',
-        name: '添加摄像头',
-        component: () => import('@/views/camera/save'),
-        meta: { title: '添加摄像头', icon: 'tree' }
+        path: 'view',
+        name: '實時預覽',
+        component: () => import('@/views/camera/view'),
+        meta: { title: '實時預覽', icon: 'tree' }
       },
       {
         path: 'edit/:id',

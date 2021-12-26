@@ -82,6 +82,27 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/test',
+    component: Layout,
+    redirect: '/test/table',
+    name: '測試管理',
+    meta: { title: '測試管理', icon: 'example' },
+    children: [
+      {
+        path: 'table',
+        name: '測試列表',
+        component: () => import('@/views/test/list'),
+        meta: { title: '測試列表', icon: 'table' }
+      },
+      {
+        path: 'view',
+        name: '測試實時預覽',
+        component: () => import('@/views/test/view'),
+        meta: { title: '測試實時預覽', icon: 'tree' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

@@ -28,7 +28,7 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="24">
-          <el-button type="primary" icon="el-icon-plus" @click="dialogFormVisible = true">新建</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="addCamera()">新建</el-button>
           <el-button type="primary" icon="el-icon-receiving" @click="dialogBatchVisible = true">批量導入</el-button>
         </el-col>
       </el-row>
@@ -80,11 +80,9 @@
               show-overflow-tooltip
             >
               <template slot-scope="scope">
-                <el-button size="mini" type="text" @click="editVm(scope.row.path)">編輯</el-button>
+                <el-button size="mini" type="text" @click="updateCamera(scope.row.pid)">編輯</el-button>
                 <el-divider direction="vertical" />
-                <el-button size="mini" type="text" @click="deleteVm(scope.row.path)">刪除</el-button>
-                <el-divider direction="vertical" />
-                <el-button size="mini" type="text" @click="openConsole(scope.row.path)">控制台</el-button>
+                <el-button size="mini" type="text" @click="deleteCameraInfo(scope.row.pid)">刪除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -261,16 +259,82 @@ export default {
         }) // 请求失败
     }, saveOrUpdate() {
       // 添加
-      this.saveCamera()
+      // 判断修改还是添加
+      // 根据teacher是否有id
+      if (!this.cameraInfo.pid) {
+        // 添加
+        this.addCameraInfo()
+      } else {
+        // 修改
+        this.updateCameraInfo()
+      }
+    },
+    addCamera() {
+      this.dialogFormVisible = true
+      // 清空表单
+      this.cameraInfo = {}
     },
     // 添加讲师方法
-    saveCamera() {
-      camera.addCamera(this.cameraInfo)
+    addCameraInfo() {
+      camera.addCameraInfo(this.cameraInfo)
         .then(response => { // 添加成功
           // 提示信息
           this.$message({
             type: 'success',
             message: '添加成功!'
+          })
+          // 清空表单
+          this.cameraInfo = {}
+          this.dialogFormVisible = false
+          // 回到列表页面  路由跳转
+          this.$router.push({ path: '/camera/table' })
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    updateCamera(pid) {
+      this.dialogFormVisible = true
+      camera.getCameraInfo(pid)
+        .then(response => { // 更新成功
+          // 提示信息
+          this.$message({
+            type: 'success',
+            message: '查詢成功!'
+          })
+          // 更新表单
+          this.cameraInfo = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    updateCameraInfo() {
+      camera.updateCameraInfo(this.cameraInfo)
+        .then(response => { // 更新成功
+          // 提示信息
+          this.$message({
+            type: 'success',
+            message: '更新成功!'
+          })
+          // 清空表单
+          this.cameraInfo = {}
+          this.dialogFormVisible = false
+          // 回到列表页面  路由跳转
+          this.$router.push({ path: '/camera/table' })
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    // 添加讲师方法
+    deleteCameraInfo(pid) {
+      camera.deleteCameraInfo(pid)
+        .then(response => { // 刪除成功
+          // 提示信息
+          this.$message({
+            type: 'success',
+            message: '刪除成功!'
           })
           // 回到列表页面  路由跳转
           this.$router.push({ path: '/camera/table' })

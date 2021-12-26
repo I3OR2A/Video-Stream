@@ -407,7 +407,7 @@ def add_camera():
     # print(request.json.get('hostname'))
     # print(request.args)
     camera = Camera(int(request.json['type_id']), request.json['hostname'], request.json['ip_address'],
-                    int(request.json['port']), request.json['url'], request.json['remark'], request.json['update_user'])
+                    int(request.json['port']), request.json['url'], request.json['remark'], '1')
     db.session.add(camera)
     db.session.commit()
 
@@ -421,14 +421,14 @@ def add_camera():
 def update_camera():
     # camera = Camera(1, '192.168.1.81', '192.168.1.81', 554,
     #                 'rtsp://admin:dh123456@192.168.1.81:554/cam/realmonitor?channel=1&subtype=1', 'test', '1')
-    camera = Camera.query.filter_by(pid=int(request.form['pid'])).first()
-    camera.type_id = int(request.form['type_id'])
-    camera.hostname = request.form['hostname']
-    camera.ip_address = request.form['ip_address']
-    camera.port = int(request.form['port'])
-    camera.url = request.form['url']
-    camera.remark = request.form['remark']
-    camera.update_user = request.form['update_user']
+    camera = Camera.query.filter_by(pid=int(request.json['pid'])).first()
+    camera.type_id = int(request.json['type_id'])
+    camera.hostname = request.json['hostname']
+    camera.ip_address = request.json['ip_address']
+    camera.port = int(request.json['port'])
+    camera.url = request.json['url']
+    camera.remark = request.json['remark']
+    camera.update_user = request.json['update_user']
     # camera = Camera(int(request.form['type_id']), request.form['hostname'], request.form['ip_address'],
     # int(request.form['port']), request.form['url'], request.form['remark'], request.form['update_user'])
     db.session.add(camera)

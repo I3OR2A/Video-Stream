@@ -10,7 +10,7 @@
     </div> -->
 
     <div
-      v-for="(video,index) of list"
+      v-for="(video,index) of videoList"
       :key="index"
       class="video_item"
     >
@@ -22,40 +22,100 @@
 </template>
 
 <script>
-import camera from '@/api/camera'
-
 export default {
   components: {
   },
   data() {
     return {
-      list: null
+      sourcesList: [
+        // 这里有的数据为空是我故意处理 因为如果数据源始终相同那么video就不会有切换的感觉
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        '',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        '',
+        '',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        '',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        '',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        '',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        '',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4',
+        'http://vjs.zencdn.net/v/oceans.mp4'
+      ],
+      videoList: [{
+        type: '測試',
+        name: '測試',
+        uid: '1',
+        isSelected: false,
+        isSpeak: false
+      }, {
+        type: '測試',
+        name: '測試',
+        uid: '1',
+        isSelected: false,
+        isSpeak: false
+      }, {
+        type: '測試',
+        name: '測試',
+        uid: '1',
+        isSelected: false,
+        isSpeak: false
+      }, {
+        type: '測試',
+        name: '測試',
+        uid: '1',
+        isSelected: false,
+        isSpeak: false
+      }, {
+        type: '測試',
+        name: '測試',
+        uid: '1',
+        isSelected: false,
+        isSpeak: false
+      }, {
+        type: '測試',
+        name: '測試',
+        uid: '1',
+        isSelected: false,
+        isSpeak: false
+      }, {
+        type: '測試',
+        name: '測試',
+        uid: '1',
+        isSelected: false,
+        isSpeak: false
+      }, {
+        type: '測試',
+        name: '測試',
+        uid: '1',
+        isSelected: false,
+        isSpeak: false
+      }, {
+        type: '測試',
+        name: '測試',
+        uid: '1',
+        isSelected: false,
+        isSpeak: false
+      }]
     }
   },
   computed: {
   },
-  created() {
-    // 在页面渲染之前执行，一般调用methods定义的方法
-    // 调用
-    this.getList()
-  },
   methods: {
-    // 讲师列表的方法
-    getList(page = 1) {
-      this.page = page
-      camera.getCameraList()
-        .then(response => {
-          // response接口返回的数据
-          console.log(response)
-          this.list = response.data
-          // this.total = response.data.total
-          console.log(this.list)
-          // console.log(this.total)
-        }) // 请求成功
-        .catch(error => {
-          console.log(error)
-        }) // 请求失败
-    }
   }
 }
 </script>

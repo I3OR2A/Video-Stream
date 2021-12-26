@@ -14,14 +14,14 @@ export default {
     })
   },
   // 删除讲师
-  deleteCamera(pid) {
+  deleteCameraInfo(pid) {
     return request({
       url: `/camera/${pid}`,
       method: 'delete'
     })
   },
   // 添加讲师
-  addCamera(camera) {
+  addCameraInfo(camera) {
     return request({
       url: `/camera/add_camera`,
       method: 'post',

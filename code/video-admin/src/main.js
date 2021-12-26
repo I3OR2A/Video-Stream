@@ -1,7 +1,9 @@
 import Vue from 'vue'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-import 'video.js/dist/video-js.css'
+import VideoPlayer from 'vue-video-player'
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -31,6 +33,9 @@ if (process.env.NODE_ENV === 'production') {
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
+const hls = require('videojs-contrib-hls')
+Vue.use(hls)
+Vue.use(VideoPlayer)
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 

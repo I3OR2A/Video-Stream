@@ -1,0 +1,88 @@
+資料庫表建立
+
+必填欄位 : 後續查案使用
+創建時間
+更新時間
+更新人員
+
+
+
+區域三級分類
+pms_category
+
+一級:單位  高公局國道路況影像 
+二級:區域  塞車路段、高港高架、國道六號...
+三級:位置  北上（新竹系統 - 基隆端）、北上（民雄 - 新竹系統）、北上（五甲 - 大林）
+
+id bigint(20) AI PK 
+name char(50) 
+title varchar(255) 
+subtitle varchar(2000)
+parent_cid bigint(20) 
+level int(11) 
+show_status tinyint(4) 
+sort int(11) 
+icon char(255) 
+
+
+攝像機資訊
+pms_camera_info
+id bigint(20) AI PK 
+name varchar(200) 
+hostname varchar(50) 
+port bigint(20) 
+username varchar(64) 
+password varchar(64) 
+description varchar(1000) 
+cat_id bigint(20) 
+publish_status tinyint(4) 
+create_time datetime 
+update_time datetim
+
+攝像機相片 (擺放位置)
+pms_camera_images
+id bigint(20) AI PK 
+camera_id bigint(20) 
+name varchar(200) 
+url varchar(255) 
+sort int(11) 
+default_img tinyint(4)
+create_time datetime 
+update_time datetim
+
+攝像機描述
+pms_camera_info_desc
+id bigint(20) AI PK 
+camera_id bigint(20) PK 
+create_time datetime 
+update_time datetim
+
+
+模組
+管理模組:人員維護、菜單管理、權限管理、定時任務(重啟 restreamer)
+攝像機模組: 攝像機增刪改查
+公用模組: 檔案上下載服務
+
+如何使用電腦觀看 Tapo 攝影機?
+https://www.tp-link.com/tw/support/faq/2680/
+Tapo攝影機的RTSP即時串流的URL(網址)為：
+
+對於1080P（1920 * 1080）串流：rtsp：//使用者名稱：密碼@IP位址：554 / stream1
+
+對於360P（640 * 360）串流：rtsp：//使用者名稱：密碼@IP位址：554 / stream2
+
+
+ffmpeg -i "rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1" -vcodec libx264 -acodec aac -f flv rtmp://127.0.0.1:4848/hls/test
+
+
+ffmpeg -i "rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1" -fflags flush_packets -max_delay 1 -an -flags -global_header -hls_time 1 -hls_list_size 3 -hls_flags 3 -vcodec copy -f flv -r 25 -an rtmp://127.0.0.1:4848/hls/test
+
+http://localhost:1515/hls/test.m3u8
+
+将rtsp视频流推流转码hls和rtmp,hls流延迟在12s
+https://blog.csdn.net/qq_49175563/article/details/113103593
+
+
+
+ffmpeg+nginx+video实现rtsp流转hls流，通过H5查看监控视频
+https://blog.csdn.net/kunzai6/article/details/76975600

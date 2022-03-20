@@ -1,0 +1,51 @@
+server:
+  port: 88
+
+spring:
+  application:
+    name: video-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:20000
+    gateway:
+      routes:
+        # 测试内容
+        - id: test_route
+          uri: https://www.baidu.com
+          predicates:
+            - Query=url,baidu
+
+        - id: qq_route
+          uri: https://www.qq.com
+          predicates:
+            - Query=url,qq
+
+        # 重定向从renren发过来的product请求
+        - id: product_route
+          uri: lb://video-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        # 第三方服务
+        - id: third_party_route
+          uri: lb://video-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty(?<segment>.*),/$\{segment}
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters: # 比如验证码，http://localhost:88/api/captcha.jpg?uuid=c592925c-af7e-415b-83dc-79c28a87351d  转为
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
+        # 其他都路由到product
+        - id: video_host_route
+          uri: lb://video-product
+          predicates:
+            - Host=**.gulimall.com  # item

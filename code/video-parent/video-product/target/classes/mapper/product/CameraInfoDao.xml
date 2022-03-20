@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ioariroi.video.product.dao.CameraInfoDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.ioariroi.video.product.entity.CameraInfoEntity" id="cameraInfoMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="hostname" column="hostname"/>
+        <result property="port" column="port"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="description" column="description"/>
+        <result property="catId" column="cat_id"/>
+        <result property="publishStatus" column="publish_status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>

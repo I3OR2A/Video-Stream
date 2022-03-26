@@ -17,5 +17,6 @@
         <module>video-common</module>
         <module>video-product</module>
         <module>video-gateway</module>
+        <module>video-third-party</module>
     </modules>
 </project>

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: video-third-party
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:20000
+server:
+  port: 30000
+video:
+  thread:
+    core-size: 20  # 20-50
+    max-size: 200
+    keep-alive-time: 10  # 10s
+logging:
+  level:
+    com.ioariroi.video.thirdparty: debug

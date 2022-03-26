@@ -75,7 +75,7 @@ Tapo攝影機的RTSP即時串流的URL(網址)為：
 ffmpeg -i "rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1" -vcodec libx264 -acodec aac -f flv rtmp://127.0.0.1:4848/hls/test
 
 
-ffmpeg -i "rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1" -fflags flush_packets -max_delay 1 -an -flags -global_header -hls_time 1 -hls_list_size 3 -hls_flags 3 -vcodec copy -f flv -r 25 -an rtmp://127.0.0.1:4848/hls/test
+ffmpeg -i "rtsp://tapoadmin:tapoadmin@192.168.68.112:554/stream1" -fflags flush_packets -max_delay 1 -an -flags -global_header -hls_time 1 -hls_list_size 3 -hls_flags 3 -vcodec copy -f flv -r 25 -an rtmp://127.0.0.1:4848/hls/test
 
 http://localhost:1515/hls/test.m3u8
 
@@ -86,3 +86,15 @@ https://blog.csdn.net/qq_49175563/article/details/113103593
 
 ffmpeg+nginx+video实现rtsp流转hls流，通过H5查看监控视频
 https://blog.csdn.net/kunzai6/article/details/76975600
+
+5 分钟完成 Nginx 直播服务部署（直播 + 分流 + 画面水印）
+https://juejin.cn/post/6844904089361317901
+
+nginx-rtmp多房间和授权实现
+https://blog.csdn.net/wei389083222/article/details/78721074
+
+
+問題解決 
+ffmpeg
+解决Java 调用CMD执行FFmpeg报错Cannot run program “ffmpeg“: CreateProcess error=2, 系统找不到指定的文件
+https://blog.csdn.net/wan82532/article/details/122978336

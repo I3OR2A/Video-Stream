@@ -114,3 +114,5 @@ MEDIA_KEY VARCHAR(255)
 );
 
 	rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1
+
+rtmp://media3.scctv.net/live/scctv_800

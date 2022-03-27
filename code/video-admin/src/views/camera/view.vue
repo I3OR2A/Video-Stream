@@ -78,7 +78,7 @@ export default {
   },
   data() {
     return {
-      OSS_PATH: 'http://localhost:8866/live?url=', // 阿里云OSS地址
+      OSS_PATH: 'http://220.130.253.247:8866/live?url=', // 阿里云OSS地址
       src: 'http://localhost:8866/live?url=rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1',
       playerOptions: {
         // playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度

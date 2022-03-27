@@ -1,0 +1,28 @@
+npm run build:prod
+
+mkdir /usr/local/soft/video
+rm -rf /usr/local/soft/video/dist
+mv /home/vsftpd/ftp-user1/ftp-user1/dist /usr/local/soft/video
+
+rm -rf /usr/local/soft/video/EasyMedia-1.3.0.jar
+mv /home/vsftpd/ftp-user1/ftp-user1/EasyMedia-1.3.0.jar /usr/local/soft/video
+
+啟動命令
+
+ps -ef |grep java
+kill -9 6255
+
+cd /usr/local/soft/video
+nohup java -jar EasyMedia-1.3.0.jar  >nohup 2>&1 &
+
+Centos7 部署 Springboot步骤，小白详细教程，全图
+https://blog.csdn.net/MacWx/article/details/106241902
+
+
+spring boot
+    api
+    sudo firewall-cmd --zone=public --add-port=8888/tcp --permanent
+    stream
+    sudo firewall-cmd --zone=public --add-port=8866/tcp --permanent
+
+    sudo firewall-cmd --reload

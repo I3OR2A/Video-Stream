@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '网络监控摄像头流媒体视频管理平台',
+  title: '網路監控攝像頭流媒體視頻管理平臺',
 
   /**
    * @type {boolean} true | false

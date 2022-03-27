@@ -1,12 +1,14 @@
 {
   "name": "video-admin",
   "version": "4.4.0",
-  "description": "网络监控摄像头流媒体视频管理平台",
+  "description": "網路監控攝像頭流媒體視頻管理平臺",
   "author": "I3OR2A <ioariroi@gmail.com>",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",
     "build:stage": "vue-cli-service build --mode staging",
+    "build:test": "vue-cli-service build --mode test",
+    "build:development": "vue-cli-service build --mode development",
     "preview": "node build/index.js --preview",
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
     "lint": "eslint --ext .js,.vue src",

@@ -58,48 +58,20 @@ export const constantRoutes = [
     path: '/camera',
     component: Layout,
     redirect: '/camera/table',
-    name: '摄像头管理',
-    meta: { title: '摄像头管理', icon: 'example' },
+    name: '流管理',
+    meta: { title: '流管理', icon: 'example' },
     children: [
       {
         path: 'table',
-        name: '摄像头列表',
+        name: '流列表',
         component: () => import('@/views/camera/list'),
-        meta: { title: '摄像头列表', icon: 'table' }
+        meta: { title: '流列表', icon: 'table' }
       },
       {
         path: 'view',
-        name: '實時預覽',
+        name: '演示頁面',
         component: () => import('@/views/camera/view'),
-        meta: { title: '實時預覽', icon: 'tree' }
-      },
-      {
-        path: 'edit/:id',
-        name: '编辑摄像头',
-        component: () => import('@/views/camera/save'),
-        meta: { title: '编辑摄像头', noCache: true },
-        hidden: true
-      }
-    ]
-  },
-  {
-    path: '/test',
-    component: Layout,
-    redirect: '/test/table',
-    name: '測試管理',
-    meta: { title: '測試管理', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: '測試列表',
-        component: () => import('@/views/test/list'),
-        meta: { title: '測試列表', icon: 'table' }
-      },
-      {
-        path: 'view',
-        name: '測試實時預覽',
-        component: () => import('@/views/test/view'),
-        meta: { title: '測試實時預覽', icon: 'tree' }
+        meta: { title: '演示頁面', icon: 'tree' }
       }
     ]
   },

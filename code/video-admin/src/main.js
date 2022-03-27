@@ -17,6 +17,7 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
+import vueFlvPlayer from 'vue-flv-player'
 
 /**
  * If you don't want to use mock-server
@@ -36,6 +37,7 @@ Vue.use(ElementUI, { locale })
 const hls = require('videojs-contrib-hls')
 Vue.use(hls)
 Vue.use(VideoPlayer)
+Vue.use(vueFlvPlayer)
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 

@@ -98,3 +98,17 @@ https://blog.csdn.net/wei389083222/article/details/78721074
 ffmpeg
 解决Java 调用CMD执行FFmpeg报错Cannot run program “ffmpeg“: CreateProcess error=2, 系统找不到指定的文件
 https://blog.csdn.net/wan82532/article/details/122978336
+
+
+DROP TABLE IF EXISTS CAMERA;
+CREATE TABLE CAMERA(
+ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+URL VARCHAR(255),
+REMARK VARCHAR(255),
+FLV INT,
+HLS INT,
+FFMPEG INT,
+AUTO_CLOSE INT,
+TYPE INT,
+MEDIA_KEY VARCHAR(255)
+);

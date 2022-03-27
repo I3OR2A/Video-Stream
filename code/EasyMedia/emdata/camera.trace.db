@@ -1,0 +1,248 @@
+2022-03-26 23:07:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CAMERA" not found; SQL statement:
+SELECT COUNT( * ) FROM camera 
+ 
+ WHERE (media_key = ?) [42102-200]
+2022-03-26 23:07:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CAMERA" not found; SQL statement:
+SELECT  id,url,remark,flv,hls,ffmpeg,auto_close,type,media_key  FROM camera [42102-200]
+2022-03-26 23:07:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CAMERA" not found; SQL statement:
+UPDATE camera  SET flv=?,
+hls=?,
+ffmpeg=?,
+auto_close=?,
+type=?  
+ 
+ WHERE (media_key = ?) [42102-200]
+2022-03-26 23:17:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Numeric value out of range: "1507738516217221121" in column "ID"; SQL statement:
+INSERT INTO camera  ( id,
+url,
+remark,
+
+
+
+
+type,
+media_key )  VALUES  ( ?,
+?,
+?,
+
+
+
+
+?,
+? ) [22004-200]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:457)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.value.Value.convertToInt(Value.java:1649)
+	at org.h2.value.Value.convertToInt(Value.java:970)
+	at org.h2.value.Value.convertTo(Value.java:806)
+	at org.h2.value.Value.convertTo(Value.java:772)
+	at org.h2.value.TypeInfo.cast(TypeInfo.java:515)
+	at org.h2.table.Column.validateConvertUpdateSequence(Column.java:378)
+	at org.h2.table.Table.validateConvertUpdateSequence(Table.java:845)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:187)
+	at org.h2.command.dml.Insert.update(Insert.java:151)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:198)
+	at org.h2.command.Command.executeUpdate(Command.java:251)
+	at org.h2.jdbc.JdbcPreparedStatement.execute(JdbcPreparedStatement.java:240)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:64)
+	at com.sun.proxy.$Proxy101.update(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62)
+	at com.sun.proxy.$Proxy100.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:194)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:181)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at com.sun.proxy.$Proxy85.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:272)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:59)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at com.sun.proxy.$Proxy86.insert(Unknown Source)
+	at com.zj.controller.StreamController.add(StreamController.java:118)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:373)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2022-03-26 23:21:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CAMERA" not found; SQL statement:
+SELECT COUNT( * ) FROM camera 
+ 
+ WHERE (media_key = ?) [42102-200]
+2022-03-26 23:26:58 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE TEST(
+ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT[*], 
+URL VARCHAR(255),
+REMARK VARCHAR(255),
+FLV INT , 
+HLS INT , 
+FFMPEG INT , 
+AUTO_CLOSE INT , 
+TYPE INT , 
+MEDIA_TYPE VARCHAR(255)
+)"; expected "COMMENT, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE TEST(
+ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+URL VARCHAR(255),
+REMARK VARCHAR(255),
+FLV INT , 
+HLS INT , 
+FFMPEG INT , 
+AUTO_CLOSE INT , 
+TYPE INT , 
+MEDIA_TYPE VARCHAR(255)
+) [42001-200]
+2022-03-26 23:27:06 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE CAMERA(
+ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT[*], 
+URL VARCHAR(255),
+REMARK VARCHAR(255),
+FLV INT , 
+HLS INT , 
+FFMPEG INT , 
+AUTO_CLOSE INT , 
+TYPE INT , 
+MEDIA_TYPE VARCHAR(255)
+)"; expected "COMMENT, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE CAMERA(
+ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+URL VARCHAR(255),
+REMARK VARCHAR(255),
+FLV INT , 
+HLS INT , 
+FFMPEG INT , 
+AUTO_CLOSE INT , 
+TYPE INT , 
+MEDIA_TYPE VARCHAR(255)
+) [42001-200]
+2022-03-26 23:27:53 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE CAMERA(
+ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT[*], 
+URL VARCHAR(255),
+REMARK VARCHAR(255),
+FLV INT , 
+HLS INT , 
+FFMPEG INT , 
+AUTO_CLOSE INT , 
+TYPE INT , 
+MEDIA_TYPE VARCHAR(255)
+)"; expected "COMMENT, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE CAMERA(
+ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+URL VARCHAR(255),
+REMARK VARCHAR(255),
+FLV INT , 
+HLS INT , 
+FFMPEG INT , 
+AUTO_CLOSE INT , 
+TYPE INT , 
+MEDIA_TYPE VARCHAR(255)
+) [42001-200]
+2022-03-26 23:27:56 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE CAMERA(
+ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT[*], 
+URL VARCHAR(255),
+REMARK VARCHAR(255),
+FLV INT , 
+HLS INT , 
+FFMPEG INT , 
+AUTO_CLOSE INT , 
+TYPE INT , 
+MEDIA_TYPE VARCHAR(255)
+)"; expected "COMMENT, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE CAMERA(
+ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+URL VARCHAR(255),
+REMARK VARCHAR(255),
+FLV INT , 
+HLS INT , 
+FFMPEG INT , 
+AUTO_CLOSE INT , 
+TYPE INT , 
+MEDIA_TYPE VARCHAR(255)
+) [42001-200]
+2022-03-26 23:31:51 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CAMERA[*]"; expected "COMMIT, CREATE, CALL, CHECKPOINT, COMMENT"; SQL statement:
+CAMERA [42001-200]
+2022-03-26 23:32:11 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TEST" already exists; SQL statement:
+CREATE TABLE TEST(ID INT PRIMARY KEY, NAME VARCHAR(255)) [42101-200]
+2022-03-27 09:29:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "b06c9e2210e6a574c117328f7f515db1"; SQL statement:
+SELECT  id,url,remark,flv,hls,ffmpeg,auto_close,type,media_key  FROM camera 
+ 
+ WHERE (id = ?) [22018-200]

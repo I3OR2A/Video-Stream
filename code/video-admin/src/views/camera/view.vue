@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div id="cctv-container">
-      <div class="cctv-stack">
+      <!-- <div class="cctv-stack">
         <a target="_blank" href="https://tw.live/cam/?id=nfbCCTV-N1-N-99.78-M">
           <span class="trigger">
             <img
@@ -56,11 +56,17 @@
           </span>
         </a>
         <p>國道1號(新竹系統交流道到新竹交流道)</p>
+      </div> -->
+      <div
+        v-for="(item,index) of list"
+        :key="index"
+        class="cctv-stack"
+      >
+        <vue-flv-player ref="myPlayer" class="trigger" :autoplay="true" :controls="false" :muted="true" :source="OSS_PATH + item.url" />
+
       </div>
     </div>
-    <div id="app">
-      <vue-flv-player ref="myPlayer" :autoplay="true" :controls="true" :muted="true" :source="src" />
-    </div>
+
   </div>
 </template>
 
@@ -72,6 +78,7 @@ export default {
   },
   data() {
     return {
+      OSS_PATH: 'http://localhost:8866/live?url=', // 阿里云OSS地址
       src: 'http://localhost:8866/live?url=rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1',
       playerOptions: {
         // playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
@@ -99,7 +106,7 @@ export default {
           fullscreenToggle: true // 全屏按钮
         }
       },
-      list: null
+      list: []
     }
   },
   computed: {
@@ -117,7 +124,7 @@ export default {
         .then(response => {
           // response接口返回的数据
           console.log(response)
-          this.list = response.data
+          this.list = response.data.data
           // this.total = response.data.total
           console.log(this.list)
           // console.log(this.total)

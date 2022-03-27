@@ -37,7 +37,7 @@ export default {
   // 讲师列表
   getCameraList() {
     return request({
-      url: `/camera/query_all`,
+      url: `/list`,
       method: 'get'
     })
   },

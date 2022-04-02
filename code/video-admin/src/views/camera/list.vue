@@ -44,7 +44,7 @@
               width="180"
               sortable
             />
-            <el-table-column prop="enabledFlv" header-align="center" align="center" label="FLV流状态">
+            <el-table-column prop="enabledFlv" header-align="center" align="center" label="FLV流狀態">
               <template slot-scope="scope">
                 <el-switch
                   v-model="scope.row.enabledFlv"
@@ -56,7 +56,7 @@
                 />
               </template>
             </el-table-column>
-            <el-table-column prop="enabledHls" header-align="center" align="center" label="HLS流状态">
+            <el-table-column prop="enabledHls" header-align="center" align="center" label="HLS流狀態">
               <template slot-scope="scope">
                 <el-switch
                   v-model="scope.row.enabledHls"
@@ -158,6 +158,8 @@ export default {
         // 修改
         this.updateCameraInfo()
       }
+
+      this.getList()
     },
     addCamera() {
       this.dialogFormVisible = true
@@ -250,6 +252,8 @@ export default {
         .catch(error => {
           console.log(error)
         })
+
+      this.getList()
     }
   }
 }

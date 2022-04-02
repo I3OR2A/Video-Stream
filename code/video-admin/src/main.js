@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import VideoPlayer from 'vue-video-player'
+import 'videojs-flash'
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 
@@ -18,6 +19,7 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 import vueFlvPlayer from 'vue-flv-player'
+import vueHlsPlayer from 'vue-hls-player'
 
 /**
  * If you don't want to use mock-server
@@ -38,6 +40,7 @@ const hls = require('videojs-contrib-hls')
 Vue.use(hls)
 Vue.use(VideoPlayer)
 Vue.use(vueFlvPlayer)
+Vue.use(vueHlsPlayer)
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 

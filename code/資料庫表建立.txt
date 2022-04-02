@@ -99,6 +99,10 @@ ffmpeg
 解决Java 调用CMD执行FFmpeg报错Cannot run program “ffmpeg“: CreateProcess error=2, 系统找不到指定的文件
 https://blog.csdn.net/wan82532/article/details/122978336
 
+vue.js中vue-video-player中的怎么插入多个视频，视频可以同时播放的问题及解决办法
+https://blog.csdn.net/CSND7997/article/details/104985981
+
+
 
 DROP TABLE IF EXISTS CAMERA;
 CREATE TABLE CAMERA(

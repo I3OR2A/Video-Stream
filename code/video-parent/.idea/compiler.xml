@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="video-gateway" />
         <module name="renren-fast" />
         <module name="renren-generator" />
-        <module name="video-product" />
         <module name="video-third-party" />
+        <module name="video-product" />
+        <module name="video-gateway" />
       </profile>
     </annotationProcessing>
   </component>

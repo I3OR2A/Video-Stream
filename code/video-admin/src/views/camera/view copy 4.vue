@@ -62,14 +62,12 @@
         :key="index"
         class="cctv-stack"
       >
-        <video-player
+        <vplayer
           ref="videoPlayer"
-          class="video-player vjs-custom-skin trigger"
-          :playsinline="true"
-          :options="playerOptions[index]"
-          @play="onPlayerPlay($event,index)"
-          @pause="onPlayerPause($event)"
+          class="trigger"
+          :player-options="playerOptions[index]"
         />
+
       </div>
     </div>
 
@@ -84,7 +82,7 @@ export default {
   },
   data() {
     return {
-      OSS_PATH: 'http://220.130.253.247:8888/hls?url=', // 阿里云OSS地址
+      OSS_PATH: 'http://localhost:8888/hls?url=', // 阿里云OSS地址
       src: 'http://localhost:8866/live?url=rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1',
       playerOptions: [],
       list: []
@@ -111,29 +109,15 @@ export default {
           // 这里正常来说应该是从后台获取的数据，以下操作都是在成功的回调函数里
           for (var i = 0; i < this.list.length; i++) {
             const arrs = {
-              height: '360',
-              muted: true,
-              autoplay: true,
-              sources: [
-                {
-                  type: 'application/vnd.apple.mpegURL',
-                  src: this.OSS_PATH + this.list[i].url // url地址
-                }
-              ],
-              controlBar: {
-                timeDivider: false, // 时间分割线
-                durationDisplay: false, // 总时间
-                remainingTimeDisplay: false,
-                currentTimeDisplay: false, // 当前时间
-                volumeControl: false, // 声音控制键
-                progressControl: false, // 进度条
-                playToggle: true, // 暂停和播放键
-                customControlSpacer: false, // 未知,
-                fullscreenToggle: true // 全屏按钮
-              },
-              flash: { hls: { withCredentials: false }},
-              html5: { hls: { withCredentials: false }},
-              poster: ''
+              type: 'application/x-mpegURL', // 媒体类型，m3u8请给application/x-mpegURL或者application/vnd.apple.mpegURL，其他的会默认为普通音视频，注：微信不支持m3u8
+              src: this.OSS_PATH + this.list[i].url, // 视频地址
+              preload: true, // 是否预下载，默认为true
+              autoplay: true, // 是否自动播放（兼容性不太好），默认为false
+              isLoop: false, // 是否循环，默认不循环
+              playsinline: false, // h5是否行内播放，默认false，有兼容性问题
+              poster: '', // 封面，仅视频有
+              controls: 'progress,current,durration,volume', // 显示的控件,volume只有视频有，没有配置controls项则全部显示。
+              crossOrigin: false // 设置视频的 CORS 设置。
             }
             this.playerOptions.push(arrs)
             console.log(this.OSS_PATH + this.list[i].url)
@@ -142,15 +126,6 @@ export default {
         .catch(error => {
           console.log(error)
         }) // 请求失败
-    },
-    onPlayerPlay(player, index) {
-      var that = this.$refs.videoPlayer
-      for (let i = 0; i < that.length; i++) {
-        if (i !== index) { that[i].player.pause() }
-      }
-    },
-    onPlayerPause(player) {
-
     }
   }
 }

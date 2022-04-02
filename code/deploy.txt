@@ -1,8 +1,14 @@
+http://220.130.253.247:9528/
+帳admin
+密碼111111
+
+
 npm run build:prod
 
 mkdir /usr/local/soft/video
 rm -rf /usr/local/soft/video/dist
 mv /home/vsftpd/ftp-user1/ftp-user1/dist /usr/local/soft/video
+nginx -s reload
 
 rm -rf /usr/local/soft/video/EasyMedia-1.3.0.jar
 mv /home/vsftpd/ftp-user1/ftp-user1/EasyMedia-1.3.0.jar /usr/local/soft/video

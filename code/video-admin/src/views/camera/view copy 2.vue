@@ -62,14 +62,8 @@
         :key="index"
         class="cctv-stack"
       >
-        <video-player
-          ref="videoPlayer"
-          class="video-player vjs-custom-skin trigger"
-          :playsinline="true"
-          :options="playerOptions[index]"
-          @play="onPlayerPlay($event,index)"
-          @pause="onPlayerPause($event)"
-        />
+        <vue-flv-player ref="myPlayer" class="trigger" :autoplay="true" :controls="false" :muted="true" :source="OSS_PATH + item.url" />
+
       </div>
     </div>
 
@@ -84,9 +78,34 @@ export default {
   },
   data() {
     return {
-      OSS_PATH: 'http://220.130.253.247:8888/hls?url=', // 阿里云OSS地址
+      OSS_PATH: 'http://220.130.253.247:8866/live?url=', // 阿里云OSS地址
       src: 'http://localhost:8866/live?url=rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1',
-      playerOptions: [],
+      playerOptions: {
+        // playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+        autoplay: false, // 如果true,浏览器准备好时开始回放。
+        muted: false, // 默认情况下将会消除任何音频。
+        loop: false, // 导致视频一结束就重新开始。
+        preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+        language: 'zh-CN',
+        aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+        fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+        sources: [
+          {
+            type: 'video/x-flv', // 这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
+            src: 'http://localhost:8866/live?url=rtsp://tapoadmin:tapoadmin@192.168.0.106:554/stream1' // url地址
+          }
+        ],
+        hls: true,
+        poster: 'http://localhost:49154/images/live.jpg', // 你的封面地址
+        width: document.documentElement.clientWidth, // 播放器宽度
+        notSupportedMessage: '此视频暂无法播放，请稍后再试', // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
+        controlBar: {
+          timeDivider: true,
+          durationDisplay: true,
+          remainingTimeDisplay: false,
+          fullscreenToggle: true // 全屏按钮
+        }
+      },
       list: []
     }
   },
@@ -108,49 +127,11 @@ export default {
           this.list = response.data.data
           // this.total = response.data.total
           console.log(this.list)
-          // 这里正常来说应该是从后台获取的数据，以下操作都是在成功的回调函数里
-          for (var i = 0; i < this.list.length; i++) {
-            const arrs = {
-              height: '360',
-              muted: true,
-              autoplay: true,
-              sources: [
-                {
-                  type: 'application/vnd.apple.mpegURL',
-                  src: this.OSS_PATH + this.list[i].url // url地址
-                }
-              ],
-              controlBar: {
-                timeDivider: false, // 时间分割线
-                durationDisplay: false, // 总时间
-                remainingTimeDisplay: false,
-                currentTimeDisplay: false, // 当前时间
-                volumeControl: false, // 声音控制键
-                progressControl: false, // 进度条
-                playToggle: true, // 暂停和播放键
-                customControlSpacer: false, // 未知,
-                fullscreenToggle: true // 全屏按钮
-              },
-              flash: { hls: { withCredentials: false }},
-              html5: { hls: { withCredentials: false }},
-              poster: ''
-            }
-            this.playerOptions.push(arrs)
-            console.log(this.OSS_PATH + this.list[i].url)
-          }
+          // console.log(this.total)
         }) // 请求成功
         .catch(error => {
           console.log(error)
         }) // 请求失败
-    },
-    onPlayerPlay(player, index) {
-      var that = this.$refs.videoPlayer
-      for (let i = 0; i < that.length; i++) {
-        if (i !== index) { that[i].player.pause() }
-      }
-    },
-    onPlayerPause(player) {
-
     }
   }
 }
